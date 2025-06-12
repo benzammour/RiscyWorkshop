@@ -234,11 +234,18 @@ constexpr uint8_t bytecode1[] =
 };
 */
 
+
+/*
+ - PC takes one number at the time
+ - The first number is the OPCODE which corresponds to the function in the handle FP-Array
+ - We execute the different functions via the handler function
+ - Label handler function has magic bytes to check for the labels easier
+*/
 constexpr uint8_t bytecode1[] = {
-    OR(REG(4), REG(0), REG(1)),
-    XOR(REG(5), REG(2), REG(3)),
-    ADD(REG(6), REG(4), REG(5)),
-    RET(REG(6)),
+    OR(REG(4), REG(0), REG(1)), // this is extended to 7, 4, 0, 1
+    XOR(REG(5), REG(2), REG(3)),  // this is extended to 6, 5, 2, 3
+    ADD(REG(6), REG(4), REG(5)), // 2, 6, 4, 5
+    RET(REG(6)), // 1, 6
 };
 
 constexpr static VMLabels labels1 = VMLabels(bytecode1);
